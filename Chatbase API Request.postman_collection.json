@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "1af5588d-7860-4b41-bbf5-296335862d26",
+		"name": "Chatbase API Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21359648"
+	},
+	"item": [
+		{
+			"name": "Chatbase API - Send Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Extracting message content from fragmented data and joining into a single readable format",
+							"var response = pm.response.text();",
+							"var formattedMessage = response.substring(response.indexOf('f:') + 2, response.indexOf('8:'));",
+							"",
+							"// Updated response time test to 3000ms",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"var template = `",
+							"<html>",
+							"<head>",
+							"    <style>",
+							"        body { font-family: Arial, sans-serif; padding: 20px; }",
+							"        .message-container { font-size: 18px; color: #333; background: #f4f4f4; padding: 15px; border-radius: 5px; }",
+							"    </style>",
+							"</head>",
+							"<body>",
+							"    <h3>Chatbot Response:</h3>",
+							"    <div class=\"message-container\">{{message}}</div>",
+							"</body>",
+							"</html>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return { message: formattedMessage };",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br, zstd",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,pt;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "public, max-age=0, must-revalidate",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://www.chatbase.co",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://www.chatbase.co/chatbot-iframe/cj8-h1spWC3gfNi97nW5v",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "DNT",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin",
+						"type": "text"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"conversationId\": \"abc123xyz\",\n    \"message\": \"Who is Owner of this website?\",\n    \"sessionId\": \"1234567890\",\n    \"chatbotId\": \"cj8-h1spWC3gfNi97nW5v\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"clientInitialMessages\": [\n        \"Hi\",\n        \"How are you?\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.chatbase.co/api/chat/cj8-h1spWC3gfNi97nW5v",
+					"protocol": "https",
+					"host": [
+						"www",
+						"chatbase",
+						"co"
+					],
+					"path": [
+						"api",
+						"chat",
+						"cj8-h1spWC3gfNi97nW5v"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
